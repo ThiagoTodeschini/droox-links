@@ -20,7 +20,7 @@ Nothing to install: it's all static files.
 **Change or add a link:** in `index.html`, each link in the window is a `<li><a class="link" ...>` block.
 Copy a block and change the `href`, the name (`link-name`) and the handle (`link-handle`).
 The same link also shows up in the Start menu (`<a class="sm-item" ...>`), so change it there too.
-If the number of links changes, update "7 object(s)" / "7 items" in the status bar.
+If the number of links changes, update "8 object(s)" / "8 items" in the status bar.
 
 For a platform that has no icon yet, grab its SVG from [simpleicons.org](https://simpleicons.org),
 add a `<symbol id="i-name">` at the top of `index.html`, a color to `BRAND_COLORS` in `script.js`
@@ -63,12 +63,18 @@ Then open http://localhost:8000.
 
 ## Publishing
 
-Any static host works. The simplest free ones:
+The site is published with GitHub Pages from the `main` branch of
+[ThiagoTodeschini/droox-links](https://github.com/ThiagoTodeschini/droox-links), at **https://droox.dev**.
+Every push to `main` updates it within a minute or so.
 
-- **GitHub Pages:** create a repository, push these files and turn on *Settings > Pages* for the `main` branch.
-  The site ends up at `https://thiagotodeschini.github.io/<repo-name>/`.
-- **Cloudflare Pages** or **Netlify:** you can drag the whole folder into their dashboard.
+The `CNAME` file holds the custom domain. The DNS for droox.dev (at name.com) points the root to GitHub Pages:
 
-After publishing, change `og:image` in `index.html` to the image's full address
-(for example `https://thiagotodeschini.github.io/droox-links/og-image.png`), otherwise Discord won't show the preview.
-A custom domain works with all of these.
+| Type | Host | Answer |
+| --- | --- | --- |
+| A | (root) | `185.199.108.153` |
+| A | (root) | `185.199.109.153` |
+| A | (root) | `185.199.110.153` |
+| A | (root) | `185.199.111.153` |
+| CNAME | `www` | `thiagotodeschini.github.io` |
+
+`og:image` and `og:url` in `index.html` use the full `https://droox.dev/` address, which is what Discord and WhatsApp need for the preview.

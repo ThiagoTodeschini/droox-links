@@ -36,6 +36,7 @@ p { margin: 0; }
 .ico[data-brand="steam"] { --brand: #1b2838; }
 .ico[data-brand="github"] { --brand: #24292f; }
 .ico[data-brand="spotify"] { --brand: #1db954; }
+.ico[data-brand="mail"] { --brand: #2f80ed; }
 
 /* ---------- shared structure ---------- */
 

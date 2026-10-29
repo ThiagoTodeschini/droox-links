@@ -62,6 +62,7 @@
     steam: ['#111D2E', '#1387B8'],
     github: ['#181717'],
     spotify: ['#1DB954'],
+    mail: ['#1F5FBF'],
   };
 
   // the 98 shortcut arrow, drawn pixel by pixel
@@ -88,13 +89,15 @@
   }
 
   function brandSvg(brand) {
-    const d = $(`#i-${brand} path`).getAttribute('d');
+    const path = $(`#i-${brand} path`);
+    const d = path.getAttribute('d');
+    const rule = path.getAttribute('fill-rule') || 'nonzero';
     const colors = BRAND_COLORS[brand];
     if (colors.length === 1) {
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 26 26"><path d="${d}" fill="${colors[0]}"/></svg>`;
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 26 26"><path d="${d}" fill="${colors[0]}" fill-rule="${rule}"/></svg>`;
     }
     const stops = colors.map((c, i) => `<stop offset="${i / (colors.length - 1)}" stop-color="${c}"/>`).join('');
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 26 26"><defs><linearGradient id="g" x1="0" y1="1" x2="1" y2="0">${stops}</linearGradient></defs><path d="${d}" fill="url(#g)"/></svg>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 26 26"><defs><linearGradient id="g" x1="0" y1="1" x2="1" y2="0">${stops}</linearGradient></defs><path d="${d}" fill="url(#g)" fill-rule="${rule}"/></svg>`;
   }
 
   function pixelate(svg, size, arrow) {
