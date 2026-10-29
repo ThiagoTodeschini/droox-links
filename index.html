@@ -106,12 +106,18 @@
 </div>
 
 <div class="desktop">
-  <button class="desk-icon" id="deskIcon" type="button">
-    <span class="icon dither" data-icon="folder" data-size="32"></span>
-    <span class="desk-label">Social media</span>
-  </button>
+  <div class="desk-icons">
+    <button class="desk-icon is-open" type="button" data-for="win">
+      <span class="icon dither" data-icon="folder" data-size="32"></span>
+      <span class="desk-label">Social media</span>
+    </button>
+    <button class="desk-icon is-open" type="button" data-for="gameWin">
+      <span class="icon dither" data-icon="game" data-size="32"></span>
+      <span class="desk-label">Outcity</span>
+    </button>
+  </div>
 
-  <main class="window" id="win" tabindex="-1" aria-labelledby="winTitle">
+  <main class="window main-win" id="win" data-window tabindex="-1" aria-labelledby="winTitle">
     <header class="titlebar">
       <span class="icon" data-icon="folder" data-size="16"></span>
       <span class="title" id="winTitle">Social media</span>
@@ -215,6 +221,32 @@
       <span class="sb-cell sb-zone" data-only="98"><span class="icon" data-icon="globe" data-size="16"></span>Internet</span>
     </footer>
   </main>
+
+  <section class="window game-win" id="gameWin" data-window tabindex="-1" aria-labelledby="gameTitle">
+    <header class="titlebar">
+      <span class="icon" data-icon="game" data-size="16"></span>
+      <span class="title" id="gameTitle">Outcity</span>
+      <div class="caption-btns">
+        <button class="cap cap-min" type="button" aria-label="Minimize">
+          <svg viewBox="0 0 10 9" aria-hidden="true"><path d="M1 6h7v2H1z"/></svg>
+        </button>
+        <button class="cap cap-close" type="button" aria-label="Close">
+          <svg viewBox="0 0 10 9" aria-hidden="true"><path d="M0 0h2v1H0zM8 0h2v1H8zM1 1h2v1H1zM7 1h2v1H7zM2 2h2v1H2zM6 2h2v1H6zM3 3h4v1H3zM4 4h2v1H4zM3 5h4v1H3zM2 6h2v1H2zM6 6h2v1H6zM1 7h2v1H1zM7 7h2v1H7zM0 8h2v1H0zM8 8h2v1H8z"/></svg>
+        </button>
+      </div>
+    </header>
+    <div class="game-body">
+      <a class="game-art" href="https://store.steampowered.com/app/3638080/Outcity/" target="_blank" rel="noopener">
+        <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3638080/48e51e01320d32d3d7bf425f08a1165246ef2b3d/header.jpg" alt="Outcity" width="460" height="215">
+      </a>
+      <p class="game-head">My game is coming to Steam!</p>
+      <p class="game-pitch">Outcity is a cozy farming sandbox. Adding it to your wishlist helps a lot.</p>
+      <a class="game-cta" href="https://store.steampowered.com/app/3638080/Outcity/" target="_blank" rel="noopener">
+        <span class="ico" data-brand="steam" data-size="16"><svg class="glyph" aria-hidden="true"><use href="#i-steam"/></svg></span>
+        Wishlist on Steam
+      </a>
+    </div>
+  </section>
 </div>
 
 <div class="taskbar">
@@ -222,8 +254,11 @@
     <span class="icon" data-icon="logo" data-size="16"></span><span class="start-label" data-only="98">Start</span>
   </button>
   <div class="tasks">
-    <button class="task" id="taskWin" type="button" aria-pressed="true">
+    <button class="task" type="button" data-for="win" aria-pressed="true">
       <span class="icon" data-icon="folder" data-size="16"></span><span class="task-label">Social media</span>
+    </button>
+    <button class="task" type="button" data-for="gameWin" aria-pressed="false">
+      <span class="icon" data-icon="game" data-size="16"></span><span class="task-label">Outcity</span>
     </button>
   </div>
   <div class="tray">
@@ -249,6 +284,7 @@
     <a class="sm-item" role="menuitem" href="https://open.spotify.com/user/thiago.todeschini" target="_blank" rel="noopener"><span class="ico" data-brand="spotify"><svg class="glyph" aria-hidden="true"><use href="#i-spotify"/></svg></span>Spotify</a>
     <a class="sm-item" role="menuitem" href="mailto:droox@droox.dev"><span class="ico" data-brand="mail"><svg class="glyph" aria-hidden="true"><use href="#i-mail"/></svg></span>Email</a>
     <hr class="sm-sep">
+    <button class="sm-item" role="menuitem" type="button" data-action="game"><span class="icon" data-icon="game" data-size="32"></span>Outcity</button>
     <button class="sm-item" role="menuitem" type="button" data-action="theme"><span class="icon" data-icon="theme" data-size="32"></span>Change theme</button>
     <button class="sm-item" role="menuitem" type="button" data-action="about"><span class="icon" data-icon="info" data-size="32"></span>About drooxOS</button>
     <hr class="sm-sep">

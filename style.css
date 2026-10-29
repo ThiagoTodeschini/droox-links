@@ -46,17 +46,24 @@ p { margin: 0; }
 .desktop {
   position: relative;
   z-index: 1;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  align-content: safe center;
+  justify-content: center;
+  gap: 24px;
   min-height: 100vh;
   min-height: 100dvh;
   padding: 24px 16px calc(var(--taskbar-h) + 24px + env(safe-area-inset-bottom));
 }
+/* phones: the windows stack, links first */
+@media (max-width: 699px) {
+  .desktop { flex-direction: column; flex-wrap: nowrap; align-items: stretch; justify-content: flex-start; }
+}
 
+.desk-icons { position: absolute; top: 12px; left: 8px; z-index: 1; display: grid; gap: 6px; }
 .desk-icon {
-  position: absolute;
-  top: 12px;
-  left: 8px;
   display: grid;
   justify-items: center;
   gap: 4px;
@@ -66,8 +73,11 @@ p { margin: 0; }
   background: none;
   text-align: center;
 }
+/* on phones a desktop icon only shows up while its window is closed */
 @media (max-width: 699px) {
-  body:not(.win-hidden) .desk-icon { display: none; }
+  .desk-icons { display: flex; }
+  .desk-icon.is-open { display: none; }
+  body.has-icons .desktop { padding-top: 112px; }
 }
 
 .window {
@@ -89,16 +99,27 @@ p { margin: 0; }
 .window.is-max .content { flex: 1; overflow: auto; }
 /* on wide screens the window fits the screen and its content scrolls inside, like Explorer */
 @media (min-width: 700px) {
-  .desktop { padding-top: 16px; padding-bottom: calc(var(--taskbar-h) + 16px + env(safe-area-inset-bottom)); }
+  .desktop { padding-top: 16px; padding-left: 112px; padding-bottom: calc(var(--taskbar-h) + 16px + env(safe-area-inset-bottom)); }
   .window:not(.dialog) { max-height: calc(100vh - var(--taskbar-h) - 32px); max-height: calc(100dvh - var(--taskbar-h) - 32px); }
   .window:not(.dialog) .content { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
   .window.is-max { max-height: none; }
 }
-/* on desktop the window goes landscape, with the shortcuts side by side */
-@media (min-width: 900px) {
-  .window:not(.dialog) { width: 660px; }
+/* on big screens the window goes landscape, with the shortcuts side by side
+   (from 1160px there's room for it plus the Outcity window and the desktop icons) */
+@media (min-width: 1160px) {
+  .main-win { width: 660px; }
   .links { grid-template-columns: 1fr 1fr; }
 }
+
+/* the Outcity window: cover art, a wishlist ask and a Steam button */
+.game-win { width: 100%; }
+@media (min-width: 700px) {
+  .game-win { width: 340px; }
+}
+.game-body { display: grid; gap: 10px; }
+.game-art { display: block; }
+.game-art img { width: 100%; height: auto; aspect-ratio: 460 / 215; object-fit: cover; }
+.game-cta { display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
 
 .titlebar { display: flex; align-items: center; gap: 6px; user-select: none; -webkit-user-select: none; }
 @media (min-width: 700px) {
@@ -354,6 +375,23 @@ dialog.window::backdrop { background: transparent; }
 [data-theme="98"] .link:focus-visible .dither::after { opacity: 1; }
 [data-theme="98"] .link:focus-visible .link-text { outline: 1px dotted #fff; outline-offset: -1px; }
 [data-theme="98"] .live-badge { padding: 0 6px; background: #d00000; color: #fff; text-shadow: 1px 0 currentColor; }
+
+[data-theme="98"] .game-body { margin-top: 2px; padding: 10px 8px 8px; }
+[data-theme="98"] .game-art { padding: 2px; background: #fff; box-shadow: var(--sunken); }
+[data-theme="98"] .game-head { text-shadow: 1px 0 currentColor; }
+[data-theme="98"] .game-cta {
+  height: 34px;
+  padding: 0 14px;
+  background: var(--face);
+  box-shadow: inset 0 0 0 1px #000, inset -2px -2px var(--dark), inset 2px 2px var(--hi), inset -3px -3px var(--shade), inset 3px 3px var(--lite);
+  color: #000;
+  text-shadow: 1px 0 currentColor;
+}
+[data-theme="98"] .game-cta:active { box-shadow: inset 0 0 0 1px #000, inset 2px 2px var(--shade); }
+[data-theme="98"] .game-cta:focus-visible { outline: 1px dotted #000; outline-offset: -6px; }
+[data-theme="98"] .game-cta .ico,
+[data-theme="98"] .game-cta .ico .pix,
+[data-theme="98"] .game-cta .ico .glyph { width: 16px; height: 16px; }
 
 [data-theme="98"] .statusbar { gap: 2px; margin-top: 2px; }
 [data-theme="98"] .sb-cell { padding: 1px 6px; box-shadow: var(--thin-in); }
@@ -682,6 +720,32 @@ dialog.window::backdrop { background: transparent; }
   font-weight: 700;
   letter-spacing: .04em;
 }
+
+[data-theme="aero"] .game-body { padding: 10px; border: 1px solid rgba(25,55,95,.5); border-radius: 4px; background: rgba(255,255,255,.93); }
+[data-theme="aero"] .game-art { overflow: hidden; border-radius: 3px; box-shadow: 0 1px 4px rgba(0,30,70,.35); }
+[data-theme="aero"] .game-head { color: var(--blue); font-size: 16px; }
+[data-theme="aero"] .game-pitch { color: #4a5563; font-size: 14px; }
+[data-theme="aero"] .game-cta {
+  height: 36px;
+  border: 1px solid #0b4f9a;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #6cc6ff 0, #2b93ea 48%, #1576d6 52%, #3aa0f0 100%);
+  box-shadow: inset 0 1px rgba(255,255,255,.6), 0 1px 3px rgba(0,40,90,.3);
+  color: #fff;
+  font-weight: 600;
+  text-shadow: 0 1px 1px rgba(0,0,0,.35);
+}
+@media (hover: hover) {
+  [data-theme="aero"] .game-cta:hover {
+    background: linear-gradient(180deg, #8ad4ff 0, #45a6f2 48%, #1d86e6 52%, #55b2f6 100%);
+    box-shadow: inset 0 1px rgba(255,255,255,.7), 0 0 10px rgba(60,170,255,.6);
+  }
+}
+[data-theme="aero"] .game-cta:active { filter: brightness(.92); }
+[data-theme="aero"] .game-cta:focus-visible { outline: 2px solid #3d97f2; outline-offset: 2px; }
+[data-theme="aero"] .game-cta .ico { width: 18px; height: 18px; background: none; box-shadow: none; }
+[data-theme="aero"] .game-cta .ico::before { display: none; }
+[data-theme="aero"] .game-cta .ico .glyph { width: 18px; height: 18px; filter: none; }
 
 [data-theme="aero"] .statusbar { padding: 6px 4px 0; color: #102030; font-size: 13px; text-shadow: 0 0 8px #fff, 0 0 4px #fff; }
 

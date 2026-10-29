@@ -28,6 +28,11 @@ and a `--brand` in `style.css` (next to `.ico[data-brand="twitch"]`).
 
 **Bio:** look for `class="bio"` in `index.html`.
 
+**Outcity window:** the second window on the desktop (`id="gameWin"` in `index.html`) shows the Steam cover art and links to
+[the Steam page](https://store.steampowered.com/app/3638080/Outcity/). The text lives in `game-head` and `game-pitch`.
+When the game comes out, change "Wishlist on Steam" to something like "Play on Steam".
+It also has its own desktop icon, taskbar button and Start menu entry.
+
 **Folder name:** "Social media" shows up in the window title, the desktop icon, the taskbar button and the address bar
 (search `index.html` for it).
 

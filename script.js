@@ -32,6 +32,7 @@
     theme: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="2.5" y="3.5" width="27" height="20" rx="2" fill="#d8d4cc" stroke="#3a3a3a" stroke-width="1.4"/><rect x="5.5" y="6.5" width="21" height="14" fill="#008080"/><path d="M16 6.5h10.5v14H16z" fill="#1f6fd0"/><path d="M16 20.5c2.6-4.6 6.3-7.4 10.5-8.6v8.6z" fill="#7fd0f6"/><circle cx="22.5" cy="10.5" r="1.8" fill="#fff"/><path d="M12 24h8l1.5 4.5h-11z" fill="#bcb7ae" stroke="#3a3a3a" stroke-width="1.2" stroke-linejoin="round"/></svg>',
     info: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><radialGradient id="i" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#9fd8ff"/><stop offset="1" stop-color="#0a4fb0"/></radialGradient></defs><circle cx="16" cy="16" r="13" fill="url(#i)" stroke="#06306e" stroke-width="1.5"/><rect x="14" y="13" width="4" height="11" fill="#fff"/><circle cx="16" cy="9" r="2.3" fill="#fff"/></svg>',
     power: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><radialGradient id="p" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffb3a6"/><stop offset="1" stop-color="#b3200e"/></radialGradient></defs><circle cx="16" cy="16" r="13" fill="url(#p)" stroke="#6b1105" stroke-width="1.5"/><path d="M11.5 11.5a7 7 0 1 0 9 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M16 8v8" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>',
+    game: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="j" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9aa3b5"/><stop offset="1" stop-color="#3b4252"/></linearGradient></defs><path d="M9 10h14c4.4 0 7 4.6 7.6 10.4.4 3.6-1.4 5.6-3.6 5.6-1.9 0-3-1.4-4.2-3.2l-1-1.5H10.2l-1 1.5C8 24.6 6.9 26 5 26c-2.2 0-4-2-3.6-5.6C2 14.6 4.6 10 9 10z" fill="url(#j)" stroke="#1d2230" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 14.5h2V17h2.5v2H10v2.5H8V19H5.5v-2H8z" fill="#fff"/><circle cx="22" cy="15.5" r="1.6" fill="#e2412a"/><circle cx="25" cy="18.3" r="1.6" fill="#36b24a"/><circle cx="19" cy="18.3" r="1.6" fill="#2f80ed"/><circle cx="22" cy="21" r="1.6" fill="#f2b705"/></svg>',
   };
 
   // the 98 logo, one character per pixel: a waving flag with the d on top
@@ -177,7 +178,8 @@
       addPixel(el, size, name === 'logo' ? logo : pixelate(ICONS[name], size, false));
     }
     for (const el of $$('.ico[data-brand]')) {
-      addPixel(el, 32, pixelate(brandSvg(el.dataset.brand), 32, el.hasAttribute('data-arrow')));
+      const size = Number(el.dataset.size) || 32;
+      addPixel(el, size, pixelate(brandSvg(el.dataset.brand), size, el.hasAttribute('data-arrow')));
     }
   }
 
@@ -204,99 +206,124 @@
   }
   const toggleTheme = () => setTheme(root.dataset.theme === '98' ? 'aero' : '98');
 
-  /* ---------- window ---------- */
+  /* ---------- windows ----------
+     Each [data-window] has a taskbar button and a desktop icon pointing back
+     to it with data-for. One window is active at a time, like Windows. */
 
-  const win = $('#win');
-  const task = $('#taskWin');
-  const deskIcon = $('#deskIcon');
-  const maxBtn = $('.cap-max', win);
+  const WINDOWS = $$('[data-window]').map((win) => ({
+    win,
+    task: $(`.task[data-for="${win.id}"]`),
+    icon: $(`.desk-icon[data-for="${win.id}"]`),
+    maxBtn: $('.cap-max', win),
+  }));
+  const mainWin = WINDOWS.find((w) => w.win.id === 'win');
+  const gameWin = WINDOWS.find((w) => w.win.id === 'gameWin');
+  let stack = [...WINDOWS]; // back to front
 
-  function setActive(on) {
-    win.classList.toggle('is-inactive', !on);
-    task.setAttribute('aria-pressed', String(on && !win.hidden));
+  function focusWin(w) {
+    if (w) stack = [...stack.filter((o) => o !== w), w];
+    stack.forEach((o, i) => { o.win.style.zIndex = String(3 + i); });
+    for (const o of WINDOWS) {
+      o.win.classList.toggle('is-inactive', o !== w);
+      o.task.setAttribute('aria-pressed', String(o === w));
+    }
   }
-  function openWin() {
-    win.hidden = false;
-    task.hidden = false;
-    body.classList.remove('win-hidden');
-    setActive(true);
-    win.focus({ preventScroll: true });
+  function syncDesktop() {
+    for (const w of WINDOWS) w.icon.classList.toggle('is-open', !w.win.hidden);
+    body.classList.toggle('has-icons', WINDOWS.some((w) => w.win.hidden));
   }
-  function minimizeWin() {
-    win.hidden = true;
-    body.classList.add('win-hidden');
-    setActive(false);
+  function openWin(w) {
+    w.win.hidden = false;
+    w.task.hidden = false;
+    syncDesktop();
+    focusWin(w);
+    w.win.focus({ preventScroll: true });
   }
-  function closeWin() {
-    minimizeWin();
-    task.hidden = true;
-    win.classList.remove('is-max');
-    win.style.removeProperty('--dx');
-    win.style.removeProperty('--dy');
-    syncMaxBtn();
+  function minimizeWin(w) {
+    w.win.hidden = true;
+    syncDesktop();
+    focusWin([...stack].reverse().find((o) => !o.win.hidden) || null);
   }
-  function toggleMax() {
-    win.classList.toggle('is-max');
-    syncMaxBtn();
+  function closeWin(w) {
+    w.task.hidden = true;
+    w.win.classList.remove('is-max');
+    w.win.style.removeProperty('--dx');
+    w.win.style.removeProperty('--dy');
+    syncMaxBtn(w);
+    minimizeWin(w);
   }
-  function syncMaxBtn() {
-    maxBtn.setAttribute('aria-label', win.classList.contains('is-max') ? 'Restore' : 'Maximize');
+  function toggleMax(w) {
+    if (!w.maxBtn) return;
+    w.win.classList.toggle('is-max');
+    syncMaxBtn(w);
   }
-
-  $('.cap-min', win).addEventListener('click', minimizeWin);
-  $('.cap-close', win).addEventListener('click', closeWin);
-  maxBtn.addEventListener('click', toggleMax);
-  win.addEventListener('focusin', () => setActive(true));
-
-  task.addEventListener('click', () => {
-    if (win.hidden) openWin();
-    else if (win.classList.contains('is-inactive')) { setActive(true); win.focus({ preventScroll: true }); }
-    else minimizeWin();
-  });
-
-  // clicking outside the window makes its title bar "inactive", like Windows
-  let lastPointer = 'mouse';
-  document.addEventListener('pointerdown', (e) => {
-    lastPointer = e.pointerType || 'mouse';
-    if (!task.contains(e.target) && !win.hidden) setActive(win.contains(e.target));
-    if (!deskIcon.contains(e.target)) deskIcon.classList.remove('is-selected');
-  }, true);
-
-  // mouse: one click selects, two open. Touch and keyboard: open right away
-  deskIcon.addEventListener('click', (e) => {
-    if (e.detail === 0 || lastPointer !== 'mouse') openWin();
-    else deskIcon.classList.add('is-selected');
-  });
-  deskIcon.addEventListener('dblclick', openWin);
+  function syncMaxBtn(w) {
+    w.maxBtn?.setAttribute('aria-label', w.win.classList.contains('is-max') ? 'Restore' : 'Maximize');
+  }
 
   // drag by the title bar (wide screens only)
-  const bar = $('.titlebar', win);
   const wide = matchMedia('(min-width: 700px)');
-  let drag = null;
-  bar.addEventListener('pointerdown', (e) => {
-    if (e.button !== 0 || e.target.closest('button') || win.classList.contains('is-max') || !wide.matches) return;
-    const r = win.getBoundingClientRect();
-    const dx = parseFloat(win.style.getPropertyValue('--dx')) || 0;
-    const dy = parseFloat(win.style.getPropertyValue('--dy')) || 0;
-    drag = { id: e.pointerId, x: e.clientX, y: e.clientY, dx, dy, left: r.left - dx, top: r.top - dy, w: r.width };
-    bar.setPointerCapture(e.pointerId);
-  });
-  bar.addEventListener('pointermove', (e) => {
-    if (!drag || e.pointerId !== drag.id) return;
-    const floor = $('.taskbar').getBoundingClientRect().top - 34;
-    const left = clamp(drag.left + drag.dx + e.clientX - drag.x, 90 - drag.w, innerWidth - 90);
-    const top = clamp(drag.top + drag.dy + e.clientY - drag.y, 0, floor);
-    win.style.setProperty('--dx', `${left - drag.left}px`);
-    win.style.setProperty('--dy', `${top - drag.top}px`);
-  });
-  const endDrag = (e) => { if (drag && e.pointerId === drag.id) drag = null; };
-  bar.addEventListener('pointerup', endDrag);
-  bar.addEventListener('pointercancel', endDrag);
-  bar.addEventListener('dblclick', (e) => { if (!e.target.closest('button')) toggleMax(); });
+  function makeDraggable(w) {
+    const bar = $('.titlebar', w.win);
+    let drag = null;
+    bar.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0 || e.target.closest('button') || w.win.classList.contains('is-max') || !wide.matches) return;
+      const r = w.win.getBoundingClientRect();
+      const dx = parseFloat(w.win.style.getPropertyValue('--dx')) || 0;
+      const dy = parseFloat(w.win.style.getPropertyValue('--dy')) || 0;
+      drag = { id: e.pointerId, x: e.clientX, y: e.clientY, dx, dy, left: r.left - dx, top: r.top - dy, w: r.width };
+      bar.setPointerCapture(e.pointerId);
+    });
+    bar.addEventListener('pointermove', (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const floor = $('.taskbar').getBoundingClientRect().top - 34;
+      const left = clamp(drag.left + drag.dx + e.clientX - drag.x, 90 - drag.w, innerWidth - 90);
+      const top = clamp(drag.top + drag.dy + e.clientY - drag.y, 0, floor);
+      w.win.style.setProperty('--dx', `${left - drag.left}px`);
+      w.win.style.setProperty('--dy', `${top - drag.top}px`);
+    });
+    const endDrag = (e) => { if (drag && e.pointerId === drag.id) drag = null; };
+    bar.addEventListener('pointerup', endDrag);
+    bar.addEventListener('pointercancel', endDrag);
+    bar.addEventListener('dblclick', (e) => { if (!e.target.closest('button')) toggleMax(w); });
+  }
   wide.addEventListener('change', () => {
-    win.style.removeProperty('--dx');
-    win.style.removeProperty('--dy');
+    for (const w of WINDOWS) {
+      w.win.style.removeProperty('--dx');
+      w.win.style.removeProperty('--dy');
+    }
   });
+
+  let lastPointer = 'mouse';
+  for (const w of WINDOWS) {
+    $('.cap-min', w.win).addEventListener('click', () => minimizeWin(w));
+    $('.cap-close', w.win).addEventListener('click', () => closeWin(w));
+    w.maxBtn?.addEventListener('click', () => toggleMax(w));
+    w.win.addEventListener('focusin', () => { if (w.win.classList.contains('is-inactive')) focusWin(w); });
+    w.task.addEventListener('click', () => {
+      if (w.win.hidden) openWin(w);
+      else if (w.win.classList.contains('is-inactive')) { focusWin(w); w.win.focus({ preventScroll: true }); }
+      else minimizeWin(w);
+    });
+    // mouse: one click selects, two open. Touch and keyboard: open right away
+    w.icon.addEventListener('click', (e) => {
+      if (e.detail === 0 || lastPointer !== 'mouse') openWin(w);
+      else w.icon.classList.add('is-selected');
+    });
+    w.icon.addEventListener('dblclick', () => openWin(w));
+    makeDraggable(w);
+  }
+
+  // clicking the desktop or the taskbar leaves every title bar "inactive", like Windows
+  document.addEventListener('pointerdown', (e) => {
+    lastPointer = e.pointerType || 'mouse';
+    if (!e.target.closest('.task')) {
+      const w = WINDOWS.find((o) => o.win.contains(e.target));
+      if (!w) focusWin(null);
+      else if (w.win.classList.contains('is-inactive')) focusWin(w);
+    }
+    for (const o of WINDOWS) if (!o.icon.contains(e.target)) o.icon.classList.remove('is-selected');
+  }, true);
 
   /* ---------- menus (menu bar and Start) ---------- */
 
@@ -375,7 +402,8 @@
     about: () => openDialog(aboutDlg),
     shutdown: () => openDialog(shutdownDlg),
     theme: toggleTheme,
-    close: closeWin,
+    close: () => closeWin(mainWin),
+    game: () => openWin(gameWin),
   };
 
   document.addEventListener('click', (e) => {
@@ -400,7 +428,7 @@
     await wait(1900);
     power.hidden = true;
     powerBusy = false;
-    openWin();
+    for (const w of [...WINDOWS].reverse()) openWin(w);
   }
 
   async function powerCycle(kind) {
@@ -478,6 +506,7 @@
   mountIcons();
   tick();
   setInterval(tick, 10000);
-  setActive(true);
+  syncDesktop();
+  focusWin(mainWin);
   checkLive();
 })();
