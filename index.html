@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en" data-theme="98">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>droox</title>
+<meta name="description" content="Game Producer Co-Founder at Darko Games.">
+<meta name="theme-color" content="#008080">
+<meta property="og:type" content="website">
+<meta property="og:title" content="droox">
+<meta property="og:description" content="Game Producer Co-Founder at Darko Games.">
+<!-- after publishing, replace with the full address (e.g. https://your-site/og-image.png); Discord and WhatsApp only accept that -->
+<meta property="og:image" content="og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Open+Sans:wght@300;400;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<script>
+  // applies the theme before the first paint, so the wrong one never flashes
+  (function () {
+    var t = null;
+    try { t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('drooxos-theme'); } catch (e) {}
+    if (t === '98' || t === 'aero') document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+</head>
+<body>
+
+<!-- platform logos (Simple Icons, CC0) -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-twitch" viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></symbol>
+  <symbol id="i-steam" viewBox="0 0 24 24"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+  <symbol id="i-spotify" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></symbol>
+</svg>
+
+<!-- Aero theme wallpaper, in the spirit of Windows 7 -->
+<div class="wallpaper" aria-hidden="true">
+  <svg class="aero-scene" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <radialGradient id="ws-bg" cx="800" cy="450" r="980" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#3fa9f5"/>
+        <stop offset=".2" stop-color="#1f7ddb"/>
+        <stop offset=".48" stop-color="#0f52b0"/>
+        <stop offset=".78" stop-color="#083274"/>
+        <stop offset="1" stop-color="#041d4d"/>
+      </radialGradient>
+      <radialGradient id="ws-halo" cx="800" cy="450" r="360" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#fff" stop-opacity=".95"/>
+        <stop offset=".14" stop-color="#eefaff" stop-opacity=".7"/>
+        <stop offset=".42" stop-color="#a6dcff" stop-opacity=".22"/>
+        <stop offset="1" stop-color="#a6dcff" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="ws-sw-white" gradientUnits="userSpaceOnUse" x1="0" y1="1000" x2="800" y2="450">
+        <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+        <stop offset=".55" stop-color="#d8f3ff" stop-opacity=".35"/>
+        <stop offset="1" stop-color="#fff" stop-opacity=".9"/>
+      </linearGradient>
+      <linearGradient id="ws-sw-green" gradientUnits="userSpaceOnUse" x1="520" y1="1000" x2="800" y2="450">
+        <stop offset="0" stop-color="#b9ff8f" stop-opacity="0"/>
+        <stop offset=".6" stop-color="#b9ff8f" stop-opacity=".3"/>
+        <stop offset="1" stop-color="#eaffd9" stop-opacity=".85"/>
+      </linearGradient>
+      <linearGradient id="ws-sw-cyan" gradientUnits="userSpaceOnUse" x1="1600" y1="240" x2="800" y2="450">
+        <stop offset="0" stop-color="#8fe6ff" stop-opacity="0"/>
+        <stop offset=".6" stop-color="#8fe6ff" stop-opacity=".32"/>
+        <stop offset="1" stop-color="#fff" stop-opacity=".85"/>
+      </linearGradient>
+      <linearGradient id="ws-sw-warm" gradientUnits="userSpaceOnUse" x1="1600" y1="860" x2="800" y2="450">
+        <stop offset="0" stop-color="#ffcf7a" stop-opacity="0"/>
+        <stop offset=".65" stop-color="#ffcf7a" stop-opacity=".22"/>
+        <stop offset="1" stop-color="#fff3d6" stop-opacity=".7"/>
+      </linearGradient>
+      <!-- the logo, same drawing as ICONS.logo in script.js -->
+      <linearGradient id="ws-logo-f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fe3ff"/><stop offset=".5" stop-color="#2a8fe8"/><stop offset="1" stop-color="#0b46a8"/></linearGradient>
+      <linearGradient id="ws-logo-s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <filter id="ws-blur-l" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="26"/></filter>
+      <filter id="ws-blur-s" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3"/></filter>
+      <filter id="ws-logo-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.4"/></filter>
+    </defs>
+    <rect width="1600" height="1000" fill="url(#ws-bg)"/>
+    <g filter="url(#ws-blur-l)" opacity=".6">
+      <path d="M-80 1000C220 780 560 560 800 450 610 590 330 830 160 1000z" fill="url(#ws-sw-white)"/>
+      <path d="M1680 720C1360 620 1040 520 800 450 1030 560 1300 740 1460 1000h220z" fill="url(#ws-sw-warm)"/>
+    </g>
+    <g filter="url(#ws-blur-s)">
+      <path d="M-80 1000C220 780 560 560 800 450 610 590 330 830 160 1000z" fill="url(#ws-sw-white)"/>
+      <path d="M440 1000C560 800 700 580 800 450 740 600 660 820 640 1000z" fill="url(#ws-sw-green)"/>
+      <path d="M1680 160C1360 250 1040 350 800 450 1060 400 1380 320 1680 290z" fill="url(#ws-sw-cyan)"/>
+      <path d="M1680 720C1360 620 1040 520 800 450 1030 560 1300 740 1460 1000h220z" fill="url(#ws-sw-warm)"/>
+    </g>
+    <circle cx="800" cy="450" r="360" fill="url(#ws-halo)"/>
+    <g transform="translate(688 338) scale(7)">
+      <g filter="url(#ws-logo-glow)" opacity=".85"><path d="M3 7c5-3 9 2 13 0s8-4 13-1v18c-5-3-9-1-13 1s-8-3-13 0z" fill="#fff"/></g>
+      <path d="M3 7c5-3 9 2 13 0s8-4 13-1v18c-5-3-9-1-13 1s-8-3-13 0z" fill="url(#ws-logo-f)" stroke="#06306e" stroke-width=".6" stroke-linejoin="round"/>
+      <path d="M3 7c5-3 9 2 13 0s8-4 13-1v8c-5-3-9-1-13 1s-8-3-13 0z" fill="url(#ws-logo-s)"/>
+      <path d="M18.5 8.2h3.6v15.6h-3.6v-1.3a5.2 5.2 0 1 1 0-7.8zM15.7 16.3a2.3 2.3 0 1 0 0 4.6 2.3 2.3 0 1 0 0-4.6z" fill="#fff" fill-rule="evenodd" stroke="#06306e" stroke-opacity=".6" stroke-width=".6" stroke-linejoin="round"/>
+    </g>
+  </svg>
+</div>
+
+<div class="desktop">
+  <button class="desk-icon" id="deskIcon" type="button">
+    <span class="icon dither" data-icon="folder" data-size="32"></span>
+    <span class="desk-label">Social media</span>
+  </button>
+
+  <main class="window" id="win" tabindex="-1" aria-labelledby="winTitle">
+    <header class="titlebar">
+      <span class="icon" data-icon="folder" data-size="16"></span>
+      <span class="title" id="winTitle">Social media</span>
+      <div class="caption-btns">
+        <button class="cap cap-min" type="button" aria-label="Minimize">
+          <svg viewBox="0 0 10 9" aria-hidden="true"><path d="M1 6h7v2H1z"/></svg>
+        </button>
+        <button class="cap cap-max" type="button" aria-label="Maximize">
+          <svg class="g-max" viewBox="0 0 10 9" aria-hidden="true"><path fill-rule="evenodd" d="M0 0h10v9H0zM1 2v6h8V2z"/></svg>
+          <svg class="g-restore" viewBox="0 0 10 9" aria-hidden="true"><path d="M3 0h7v6H7V5h2V2H3zM3 2h1v1H3z"/><path fill-rule="evenodd" d="M0 3h7v6H0zM1 5v3h5V5z"/></svg>
+        </button>
+        <button class="cap cap-close" type="button" aria-label="Close">
+          <svg viewBox="0 0 10 9" aria-hidden="true"><path d="M0 0h2v1H0zM8 0h2v1H8zM1 1h2v1H1zM7 1h2v1H7zM2 2h2v1H2zM6 2h2v1H6zM3 3h4v1H3zM4 4h2v1H4zM3 5h4v1H3zM2 6h2v1H2zM6 6h2v1H6zM1 7h2v1H1zM7 7h2v1H7zM0 8h2v1H0zM8 8h2v1H8z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <nav class="menubar" aria-label="Window menu">
+      <div class="menu">
+        <button class="menu-btn" type="button" aria-haspopup="menu" aria-expanded="false"><u>F</u>ile</button>
+        <div class="menu-pop" role="menu" hidden>
+          <button type="button" role="menuitem" data-action="close">Close</button>
+        </div>
+      </div>
+      <div class="menu">
+        <button class="menu-btn" type="button" aria-haspopup="menu" aria-expanded="false"><u>V</u>iew</button>
+        <div class="menu-pop" role="menu" hidden>
+          <button type="button" role="menuitemradio" aria-checked="true" data-set-theme="98">Windows 98 theme</button>
+          <button type="button" role="menuitemradio" aria-checked="false" data-set-theme="aero">Frutiger Aero theme</button>
+        </div>
+      </div>
+      <div class="menu">
+        <button class="menu-btn" type="button" aria-haspopup="menu" aria-expanded="false"><u>H</u>elp</button>
+        <div class="menu-pop" role="menu" hidden>
+          <button type="button" role="menuitem" data-action="about">About drooxOS</button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="addressbar">
+      <span class="nav-orbs" data-only="aero" aria-hidden="true"><span></span><span class="orb-fwd"></span></span>
+      <span class="addr-label" data-only="98">Address</span>
+      <div class="addr-field">
+        <span class="icon" data-icon="folder" data-size="16"></span>
+        <span class="addr-path" data-only="98">C:\droox\Social media</span>
+        <span class="addr-crumbs" data-only="aero"><span>droox</span><span>Social media</span></span>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="profile">
+        <span class="avatar-frame">
+          <img class="avatar" src="https://static-cdn.jtvnw.net/jtv_user_pictures/c0e76c03-fa86-42f2-9ec7-708d58ab4e52-profile_image-300x300.png" alt="droox's profile picture" width="68" height="68" onerror="this.onerror=null;this.src='https://github.com/ThiagoTodeschini.png'">
+        </span>
+        <div class="profile-text">
+          <h1 class="name">droox</h1>
+          <p class="bio">Game Producer Co-Founder at Darko Games.</p>
+          <a class="live-line" href="https://www.twitch.tv/drooxdroox" target="_blank" rel="noopener" hidden><span class="dot" aria-hidden="true"></span>live now on Twitch</a>
+        </div>
+      </div>
+
+      <ul class="links">
+        <li><a class="link" href="https://www.twitch.tv/drooxdroox" target="_blank" rel="me noopener">
+          <span class="ico dither" data-brand="twitch" data-arrow><svg class="glyph" aria-hidden="true"><use href="#i-twitch"/></svg></span>
+          <span class="link-text"><span class="link-name">Twitch</span><span class="link-handle">/drooxdroox</span></span>
+          <span class="live-badge" hidden>LIVE</span>
+        </a></li>
+        <li><a class="link" href="https://www.instagram.com/inihcsedot.png/" target="_blank" rel="me noopener">
+          <span class="ico dither" data-brand="instagram" data-arrow><svg class="glyph" aria-hidden="true"><use href="#i-instagram"/></svg></span>
+          <span class="link-text"><span class="link-name">Instagram</span><span class="link-handle">@inihcsedot.png</span></span>
+        </a></li>
+        <li><a class="link" href="https://x.com/drooxdroox" target="_blank" rel="me noopener">
+          <span class="ico dither" data-brand="x" data-arrow><svg class="glyph" aria-hidden="true"><use href="#i-x"/></svg></span>
+          <span class="link-text"><span class="link-name">X (Twitter)</span><span class="link-handle">@drooxdroox</span></span>
+        </a></li>
+        <li><a class="link" href="https://x.com/suckatosu" target="_blank" rel="me noopener">
+          <span class="ico dither" data-brand="x" data-arrow><svg class="glyph" aria-hidden="true"><use href="#i-x"/></svg></span>
+          <span class="link-text"><span class="link-name">X (Twitter)</span><span class="link-handle">@suckatosu</span></span>
+        </a></li>
+        <li><a class="link" href="https://steamcommunity.com/id/Droox/" target="_blank" rel="me noopener">
+          <span class="ico dither" data-brand="steam" data-arrow><svg class="glyph" aria-hidden="true"><use href="#i-steam"/></svg></span>
+          <span class="link-text"><span class="link-name">Steam</span><span class="link-handle">/id/Droox</span></span>
+        </a></li>
+        <li><a class="link" href="https://github.com/ThiagoTodeschini" target="_blank" rel="me noopener">
+          <span class="ico dither" data-brand="github" data-arrow><svg class="glyph" aria-hidden="true"><use href="#i-github"/></svg></span>
+          <span class="link-text"><span class="link-name">GitHub</span><span class="link-handle">/ThiagoTodeschini</span></span>
+        </a></li>
+        <li><a class="link" href="https://open.spotify.com/user/thiago.todeschini" target="_blank" rel="me noopener">
+          <span class="ico dither" data-brand="spotify" data-arrow><svg class="glyph" aria-hidden="true"><use href="#i-spotify"/></svg></span>
+          <span class="link-text"><span class="link-name">Spotify</span><span class="link-handle">/thiago.todeschini</span></span>
+        </a></li>
+      </ul>
+    </div>
+
+    <footer class="statusbar">
+      <span class="sb-cell sb-count"><span data-only="98">7 object(s)</span><span data-only="aero">7 items</span></span>
+      <span class="sb-cell sb-zone" data-only="98"><span class="icon" data-icon="globe" data-size="16"></span>Internet</span>
+    </footer>
+  </main>
+</div>
+
+<div class="taskbar">
+  <button class="start-btn" id="startBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="startMenu" aria-label="Start">
+    <span class="icon" data-icon="logo" data-size="16"></span><span class="start-label" data-only="98">Start</span>
+  </button>
+  <div class="tasks">
+    <button class="task" id="taskWin" type="button" aria-pressed="true">
+      <span class="icon" data-icon="folder" data-size="16"></span><span class="task-label">Social media</span>
+    </button>
+  </div>
+  <div class="tray">
+    <a class="tray-live" id="trayLive" href="https://www.twitch.tv/drooxdroox" target="_blank" rel="noopener" title="droox is live on Twitch" hidden><span class="dot"></span><span class="sr-only">Live on Twitch</span></a>
+    <button class="tray-theme" id="trayTheme" type="button">98</button>
+    <time class="clock" id="clock"></time>
+  </div>
+</div>
+
+<div class="start-menu" id="startMenu" role="menu" aria-label="Start menu" hidden>
+  <div class="sm-banner" data-only="98" aria-hidden="true"><span><b>drooxOS</b>98</span></div>
+  <div class="sm-head" data-only="aero">
+    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/c0e76c03-fa86-42f2-9ec7-708d58ab4e52-profile_image-300x300.png" alt="" width="48" height="48" onerror="this.onerror=null;this.src='https://github.com/ThiagoTodeschini.png'">
+    <strong>droox</strong>
+  </div>
+  <div class="sm-items">
+    <a class="sm-item" role="menuitem" href="https://www.twitch.tv/drooxdroox" target="_blank" rel="noopener"><span class="ico" data-brand="twitch"><svg class="glyph" aria-hidden="true"><use href="#i-twitch"/></svg></span>Twitch</a>
+    <a class="sm-item" role="menuitem" href="https://www.instagram.com/inihcsedot.png/" target="_blank" rel="noopener"><span class="ico" data-brand="instagram"><svg class="glyph" aria-hidden="true"><use href="#i-instagram"/></svg></span>Instagram</a>
+    <a class="sm-item" role="menuitem" href="https://x.com/drooxdroox" target="_blank" rel="noopener"><span class="ico" data-brand="x"><svg class="glyph" aria-hidden="true"><use href="#i-x"/></svg></span>X @drooxdroox</a>
+    <a class="sm-item" role="menuitem" href="https://x.com/suckatosu" target="_blank" rel="noopener"><span class="ico" data-brand="x"><svg class="glyph" aria-hidden="true"><use href="#i-x"/></svg></span>X @suckatosu</a>
+    <a class="sm-item" role="menuitem" href="https://steamcommunity.com/id/Droox/" target="_blank" rel="noopener"><span class="ico" data-brand="steam"><svg class="glyph" aria-hidden="true"><use href="#i-steam"/></svg></span>Steam</a>
+    <a class="sm-item" role="menuitem" href="https://github.com/ThiagoTodeschini" target="_blank" rel="noopener"><span class="ico" data-brand="github"><svg class="glyph" aria-hidden="true"><use href="#i-github"/></svg></span>GitHub</a>
+    <a class="sm-item" role="menuitem" href="https://open.spotify.com/user/thiago.todeschini" target="_blank" rel="noopener"><span class="ico" data-brand="spotify"><svg class="glyph" aria-hidden="true"><use href="#i-spotify"/></svg></span>Spotify</a>
+    <hr class="sm-sep">
+    <button class="sm-item" role="menuitem" type="button" data-action="theme"><span class="icon" data-icon="theme" data-size="32"></span>Change theme</button>
+    <button class="sm-item" role="menuitem" type="button" data-action="about"><span class="icon" data-icon="info" data-size="32"></span>About drooxOS</button>
+    <hr class="sm-sep">
+    <button class="sm-item" role="menuitem" type="button" data-action="shutdown"><span class="icon" data-icon="power" data-size="32"></span>Shut Down...</button>
+  </div>
+</div>
+
+<dialog class="window dialog" id="aboutDlg" aria-labelledby="aboutTitle">
+  <header class="titlebar">
+    <span class="title" id="aboutTitle">About drooxOS</span>
+    <div class="caption-btns">
+      <button class="cap cap-close" type="button" aria-label="Close" data-close>
+        <svg viewBox="0 0 10 9" aria-hidden="true"><path d="M0 0h2v1H0zM8 0h2v1H8zM1 1h2v1H1zM7 1h2v1H7zM2 2h2v1H2zM6 2h2v1H6zM3 3h4v1H3zM4 4h2v1H4zM3 5h4v1H3zM2 6h2v1H2zM6 6h2v1H6zM1 7h2v1H1zM7 7h2v1H7zM0 8h2v1H0zM8 8h2v1H8z"/></svg>
+      </button>
+    </div>
+  </header>
+  <form class="dlg-panel" method="dialog">
+    <div class="dlg-body dlg-center">
+      <span class="icon dlg-icon" data-icon="logo" data-size="32"></span>
+      <p>Version 4.10.2026</p>
+    </div>
+    <div class="dlg-actions">
+      <button class="btn is-default" value="ok" autofocus>OK</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="window dialog" id="shutdownDlg" aria-labelledby="sdTitle">
+  <header class="titlebar">
+    <span class="title" id="sdTitle">Shut Down drooxOS</span>
+    <div class="caption-btns">
+      <button class="cap cap-close" type="button" aria-label="Close" data-close>
+        <svg viewBox="0 0 10 9" aria-hidden="true"><path d="M0 0h2v1H0zM8 0h2v1H8zM1 1h2v1H1zM7 1h2v1H7zM2 2h2v1H2zM6 2h2v1H6zM3 3h4v1H3zM4 4h2v1H4zM3 5h4v1H3zM2 6h2v1H2zM6 6h2v1H6zM1 7h2v1H1zM7 7h2v1H7zM0 8h2v1H0zM8 8h2v1H8z"/></svg>
+      </button>
+    </div>
+  </header>
+  <form class="dlg-panel" method="dialog">
+    <div class="dlg-body">
+      <span class="icon dlg-icon" data-icon="power" data-size="32"></span>
+      <fieldset class="dlg-text">
+        <legend>What do you want the computer to do?</legend>
+        <label class="radio"><input type="radio" name="sd" value="off" checked><span>Shut down</span></label>
+        <label class="radio"><input type="radio" name="sd" value="restart"><span>Restart</span></label>
+      </fieldset>
+    </div>
+    <div class="dlg-actions">
+      <button class="btn is-default" value="ok" autofocus>OK</button>
+      <button class="btn" value="cancel">Cancel</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="balloon" id="balloon" role="status" hidden>
+  <a class="balloon-body" href="https://www.twitch.tv/drooxdroox" target="_blank" rel="noopener">
+    <strong>droox is live on Twitch</strong>
+    <span class="balloon-title" id="balloonTitle" hidden></span>
+    <span>Click here to watch.</span>
+  </a>
+  <button class="balloon-x" type="button" aria-label="Close notification">
+    <svg viewBox="0 0 10 9" aria-hidden="true"><path d="M0 0h2v1H0zM8 0h2v1H8zM1 1h2v1H1zM7 1h2v1H7zM2 2h2v1H2zM6 2h2v1H6zM3 3h4v1H3zM4 4h2v1H4zM3 5h4v1H3zM2 6h2v1H2zM6 6h2v1H6zM1 7h2v1H1zM7 7h2v1H7zM0 8h2v1H0zM8 8h2v1H8z"/></svg>
+  </button>
+</div>
+
+<div class="power" id="power" tabindex="-1" hidden>
+  <div class="power-phase" data-phase="busy">
+    <span class="spinner" data-only="aero" aria-hidden="true"></span>
+    <p class="power-msg" id="powerMsg">Shutting down...</p>
+  </div>
+  <div class="power-phase" data-phase="off">
+    <p class="power-safe" data-only="98">It's now safe to turn off your computer.</p>
+    <p class="power-hint">Click anywhere to turn it back on.</p>
+  </div>
+  <div class="power-phase" data-phase="boot">
+    <span class="icon boot-logo" data-icon="logo" data-size="32"></span>
+    <p class="boot-name" data-only="98">drooxOS 98</p>
+    <p class="boot-name" data-only="aero">Starting drooxOS</p>
+    <span class="boot-bar" data-only="98"></span>
+  </div>
+</div>
+
+<script src="script.js" defer></script>
+</body>
+</html>
